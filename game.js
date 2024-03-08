@@ -12,6 +12,11 @@ var state = {
   over: 2,
 };
 
+window.addEventListener("click", clickHandler);
+window.addEventListener("keydown", function (e) {
+  if ((e.which = 32)) clickHandler();
+});
+
 function clickHandler() {
   switch (state.current) {
     case state.ready:
@@ -21,7 +26,7 @@ function clickHandler() {
       break;
 
     default:
-      state.current=state.ready
+      state.current = state.ready;
       break;
   }
 }
