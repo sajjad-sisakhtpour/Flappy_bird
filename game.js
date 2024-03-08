@@ -31,6 +31,7 @@ function clickHandler() {
       state.current = state.ready;
       bird.speed = 0;
       bird.rotation = 0;
+      pipes.position = [];
       break;
   }
 }
@@ -219,9 +220,10 @@ var pipes = {
   w: 53,
   h: 400,
   y: -150,
-  x: 200,
+  x: cvs.width,
   gap: 80,
   position: [],
+  dx: 2,
   draw: function () {
     for (i = 0; i < this.position.length; i++) {
       var p = this.position[i];
@@ -256,6 +258,14 @@ var pipes = {
         x: this.x,
         y: this.y,
       });
+    }
+    for (i = 0; i < this.position.length; i++) {
+      var p = this.position[i];
+      p.x -= this.dx;
+
+      if (p.x+this.w < 0) {
+        this.position.shift();
+      }
     }
   },
 };
