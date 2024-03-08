@@ -12,6 +12,20 @@ var state = {
   over: 2,
 };
 
+function clickHandler() {
+  switch (state.current) {
+    case state.ready:
+      state.current = state.game;
+      break;
+    case state.game:
+      break;
+
+    default:
+      state.current=state.ready
+      break;
+  }
+}
+
 var bg = {
   sX: 0,
   sY: 0,
