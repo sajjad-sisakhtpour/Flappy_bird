@@ -123,6 +123,7 @@ var bird = {
   animationIndex: 0,
   jump: 4.6,
   rotation: 0,
+  radius: 12,
   draw: function () {
     ctx.save();
     ctx.translate(this.x, this.y);
@@ -256,15 +257,33 @@ var pipes = {
     if (frames % 100 == 0) {
       this.position.push({
         x: this.x,
-        y: this.y*(Math.random()+1),
+        y: this.y * (Math.random() + 1),
       });
     }
     for (i = 0; i < this.position.length; i++) {
       var p = this.position[i];
       p.x -= this.dx;
 
-      if (p.x+this.w < 0) {
+      if (p.x + this.w < 0) {
         this.position.shift();
+      }
+
+      if (
+        bird.x + bird.radius > p.x &&
+        bird.x - bird.radius < p.x + this.w &&
+        bird.y + bird.radius > p.y &&
+        bird.y - bird.radius < p.y + this.h
+      ) {
+        state.current = state.over;
+      }
+      var bottomYPos = p.y + this.h + this.gap;
+      if (
+        bird.x + bird.radius > p.x &&
+        bird.x - bird.radius < p.x + this.w &&
+        bird.y + bird.radius > bottomYPos &&
+        bird.y - bird.radius < bottomYPos + this.h
+      ) {
+        state.current = state.over;
       }
     }
   },
