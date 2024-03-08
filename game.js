@@ -220,7 +220,8 @@ var pipes = {
   h: 400,
   y: -150,
   x: 200,
-  gap:80,
+  gap: 80,
+  position: [],
   draw: function () {
     ctx.drawImage(
       sprite,
@@ -240,10 +241,19 @@ var pipes = {
       this.w,
       this.h,
       this.x,
-      this.y+this.h+this.gap,
+      this.y + this.h + this.gap,
       this.w,
       this.h
     );
+  },
+  update: function () {
+    if (state.current != state.game) return;
+    if (frames % 100 == 0) {
+      this.position.push({
+        x: this.x,
+        y: this.y,
+      });
+    }
   },
 };
 
