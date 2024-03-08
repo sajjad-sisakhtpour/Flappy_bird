@@ -1,6 +1,7 @@
 var cvs = document.getElementById("mycan");
 var ctx = cvs.getContext("2d");
 var frames = 0;
+var DEGREE = Math.PI / 180;
 
 var sprite = new Image();
 sprite.src = "img/sprite.png";
@@ -114,18 +115,23 @@ var bird = {
   gravity: 0.25,
   animationIndex: 0,
   jump: 4.6,
+  rotation: 0,
   draw: function () {
+    ctx.save();
+    ctx.translate(this.x, this.y);
+    ctx.rotate(this.rotation);
     ctx.drawImage(
       sprite,
       this.Animation[this.animationIndex].sX,
       this.Animation[this.animationIndex].sY,
       this.w,
       this.h,
-      this.x - this.w / 2,
-      this.y - this.h / 2,
+      -this.w / 2,
+      -this.h / 2,
       this.w,
       this.h
     );
+    ctx.restore();
   },
   update: function () {
     var period = state.current == state.game ? 5 : 10;
@@ -140,6 +146,11 @@ var bird = {
         this.y = fg.y - this.h / 2;
         this.animationIndex = 0;
         state.current = state.over;
+      }
+      if (this.speed > this.jump) {
+        this.rotation = 90 * DEGREE;
+      } else {
+        this.rotation = -25 * DEGREE;
       }
     }
   },
