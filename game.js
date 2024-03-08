@@ -32,6 +32,7 @@ function clickHandler() {
       bird.speed = 0;
       bird.rotation = 0;
       pipes.position = [];
+      score.value = 0;
       break;
   }
 }
@@ -266,6 +267,9 @@ var pipes = {
 
       if (p.x + this.w < 0) {
         this.position.shift();
+        score.value++;
+        score.best = Math.max(score.best, score.value);
+        localStorage.setItem("best", score.best);
       }
 
       if (
@@ -289,6 +293,29 @@ var pipes = {
   },
 };
 
+var score = {
+  value: 0,
+  best: 0 || parseInt(localStorage.getItem("best")),
+  draw: function () {
+    ctx.fillStyle = "#FFF";
+    ctx.strokeStyle = "#000";
+    ctx.lineWidth = 2;
+    if (state.current == state.game) {
+      ctx.font = "35px IMPACT";
+      ctx.fillText(this.value, cvs.width / 2, 50);
+      ctx.strokeText(this.value, cvs.width / 2, 50);
+    } else if (state.current == state.over) {
+      ctx.font = "20px IMPACT";
+
+      ctx.fillText(this.value, 225, 186);
+      ctx.strokeText(this.value, 225, 186);
+
+      ctx.fillText(this.best, 225, 230);
+      ctx.strokeText(this.best, 225, 230);
+    }
+  },
+};
+
 function draw() {
   ctx.fillStyle = "#70c5ce";
   ctx.fillRect(0, 0, cvs.width, cvs.height);
@@ -298,6 +325,7 @@ function draw() {
   bird.draw();
   getReady.draw();
   gameOver.draw();
+  score.draw();
 }
 
 function update() {
