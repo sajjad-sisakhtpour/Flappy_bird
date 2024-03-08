@@ -256,7 +256,7 @@ var pipes = {
     if (frames % 100 == 0) {
       this.position.push({
         x: this.x,
-        y: this.y,
+        y: this.y*(Math.random()+1),
       });
     }
     for (i = 0; i < this.position.length; i++) {
