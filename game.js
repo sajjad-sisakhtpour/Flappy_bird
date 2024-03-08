@@ -213,10 +213,45 @@ var gameOver = {
   },
 };
 
+var pipes = {
+  top: { sX: 553, sY: 0 },
+  bottom: { sX: 502, sY: 0 },
+  w: 53,
+  h: 400,
+  y: -150,
+  x: 200,
+  gap:80,
+  draw: function () {
+    ctx.drawImage(
+      sprite,
+      this.top.sX,
+      this.top.sY,
+      this.w,
+      this.h,
+      this.x,
+      this.y,
+      this.w,
+      this.h
+    );
+    ctx.drawImage(
+      sprite,
+      this.bottom.sX,
+      this.bottom.sY,
+      this.w,
+      this.h,
+      this.x,
+      this.y+this.h+this.gap,
+      this.w,
+      this.h
+    );
+  },
+};
+
 function draw() {
   ctx.fillStyle = "#70c5ce";
   ctx.fillRect(0, 0, cvs.width, cvs.height);
   bg.draw();
+  pipes.draw();
   fg.draw();
   bird.draw();
   getReady.draw();
