@@ -23,10 +23,12 @@ function clickHandler() {
       state.current = state.game;
       break;
     case state.game:
+      bird.flap();
       break;
 
     default:
       state.current = state.ready;
+      bird.speed = 0;
       break;
   }
 }
@@ -111,6 +113,7 @@ var bird = {
   speed: 0,
   gravity: 0.25,
   animationIndex: 0,
+  jump: 4.6,
   draw: function () {
     ctx.drawImage(
       sprite,
@@ -136,8 +139,12 @@ var bird = {
       if (this.y + this.h / 2 > fg.y) {
         this.y = fg.y - this.h / 2;
         this.animationIndex = 0;
+        state.current = state.over;
       }
     }
+  },
+  flap: function () {
+    this.speed = -this.jump;
   },
 };
 
