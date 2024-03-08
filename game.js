@@ -6,6 +6,21 @@ var DEGREE = Math.PI / 180;
 var sprite = new Image();
 sprite.src = "img/sprite.png";
 
+var DIE = new Audio();
+DIE.src = "audio/die.wav";
+
+var FLAP = new Audio();
+FLAP.src = "audio/FLAP.wav";
+
+var HIT = new Audio();
+HIT.src = "audio/HIT.wav";
+
+var SCORE = new Audio();
+SCORE.src = "audio/SCORE.wav";
+
+var START = new Audio();
+START.src = "audio/START.wav";
+
 var state = {
   current: 0,
   ready: 0,
@@ -21,10 +36,12 @@ window.addEventListener("keydown", function (e) {
 function clickHandler() {
   switch (state.current) {
     case state.ready:
+      START.play();
       state.current = state.game;
       break;
     case state.game:
       bird.flap();
+      FLAP.play();
       break;
 
     default:
@@ -154,7 +171,10 @@ var bird = {
       if (this.y + this.h / 2 > fg.y) {
         this.y = fg.y - this.h / 2;
         this.animationIndex = 0;
-        state.current = state.over;
+        if (state.current == state.game) {
+          state.current = state.over;
+          DIE.play();
+        }
       }
       if (this.speed > this.jump) {
         this.rotation = 90 * DEGREE;
@@ -270,6 +290,7 @@ var pipes = {
         score.value++;
         score.best = Math.max(score.best, score.value);
         localStorage.setItem("best", score.best);
+        SCORE.play();
       }
 
       if (
@@ -279,6 +300,7 @@ var pipes = {
         bird.y - bird.radius < p.y + this.h
       ) {
         state.current = state.over;
+        HIT.play();
       }
       var bottomYPos = p.y + this.h + this.gap;
       if (
@@ -288,6 +310,7 @@ var pipes = {
         bird.y - bird.radius < bottomYPos + this.h
       ) {
         state.current = state.over;
+        HIT.play();
       }
     }
   },
