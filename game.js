@@ -223,28 +223,31 @@ var pipes = {
   gap: 80,
   position: [],
   draw: function () {
-    ctx.drawImage(
-      sprite,
-      this.top.sX,
-      this.top.sY,
-      this.w,
-      this.h,
-      this.x,
-      this.y,
-      this.w,
-      this.h
-    );
-    ctx.drawImage(
-      sprite,
-      this.bottom.sX,
-      this.bottom.sY,
-      this.w,
-      this.h,
-      this.x,
-      this.y + this.h + this.gap,
-      this.w,
-      this.h
-    );
+    for (i = 0; i < this.position.length; i++) {
+      var p = this.position[i];
+      ctx.drawImage(
+        sprite,
+        this.top.sX,
+        this.top.sY,
+        this.w,
+        this.h,
+        p.x,
+        p.y,
+        this.w,
+        this.h
+      );
+      ctx.drawImage(
+        sprite,
+        this.bottom.sX,
+        this.bottom.sY,
+        this.w,
+        this.h,
+        p.x,
+        p.y + this.h + this.gap,
+        this.w,
+        this.h
+      );
+    }
   },
   update: function () {
     if (state.current != state.game) return;
@@ -271,6 +274,7 @@ function draw() {
 function update() {
   bird.update();
   fg.update();
+  pipes.update();
 }
 
 function animate() {
