@@ -108,6 +108,8 @@ var bird = {
   h: 26,
   x: 50,
   y: 150,
+  speed: 0,
+  gravity: 0.25,
   animationIndex: 0,
   draw: function () {
     ctx.drawImage(
@@ -126,6 +128,16 @@ var bird = {
     var period = state.current == state.game ? 5 : 10;
     this.animationIndex += frames % 5 == 0 ? 1 : 0;
     this.animationIndex = this.animationIndex % this.Animation.length;
+
+    if (state.current == state.ready) this.y = 150;
+    else {
+      this.y += this.speed;
+      this.speed += this.gravity;
+      if (this.y + this.h / 2 > fg.y) {
+        this.y = fg.y - this.h / 2;
+        this.animationIndex = 0;
+      }
+    }
   },
 };
 
