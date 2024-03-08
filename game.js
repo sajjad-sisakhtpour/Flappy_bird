@@ -5,6 +5,13 @@ var frames = 0;
 var sprite = new Image();
 sprite.src = "img/sprite.png";
 
+var state = {
+  current: 0,
+  ready: 0,
+  game: 1,
+  over: 2,
+};
+
 var bg = {
   sX: 0,
   sY: 0,
@@ -106,17 +113,19 @@ var getReady = {
   x: cvs.width / 2 - 173 / 2,
   y: 80,
   draw: function () {
-    ctx.drawImage(
-      sprite,
-      this.sX,
-      this.sY,
-      this.w,
-      this.h,
-      this.x,
-      this.y,
-      this.w,
-      this.h
-    );
+    if (state.current == state.ready) {
+      ctx.drawImage(
+        sprite,
+        this.sX,
+        this.sY,
+        this.w,
+        this.h,
+        this.x,
+        this.y,
+        this.w,
+        this.h
+      );
+    }
   },
 };
 
@@ -128,17 +137,19 @@ var gameOver = {
   x: cvs.width / 2 - 225 / 2,
   y: 90,
   draw: function () {
-    ctx.drawImage(
-      sprite,
-      this.sX,
-      this.sY,
-      this.w,
-      this.h,
-      this.x,
-      this.y,
-      this.w,
-      this.h
-    );
+    if (state.current == state.over) {
+      ctx.drawImage(
+        sprite,
+        this.sX,
+        this.sY,
+        this.w,
+        this.h,
+        this.x,
+        this.y,
+        this.w,
+        this.h
+      );
+    }
   },
 };
 
