@@ -122,6 +122,11 @@ var bird = {
       this.h
     );
   },
+  update: function () {
+    var period = state.current == state.game ? 5 : 10;
+    this.animationIndex += frames % 5 == 0 ? 1 : 0;
+    this.animationIndex = this.animationIndex % this.Animation.length;
+  },
 };
 
 var getReady = {
@@ -182,7 +187,9 @@ function draw() {
   gameOver.draw();
 }
 
-function update() {}
+function update() {
+  bird.update();
+}
 
 function animate() {
   draw();
