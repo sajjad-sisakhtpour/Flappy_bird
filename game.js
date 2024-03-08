@@ -71,17 +71,22 @@ var fg = {
 };
 
 var bird = {
-  sX: 276,
-  sY: 112,
+  Animation: [
+    { sX: 276, sY: 112 },
+    { sX: 276, sY: 139 },
+    { sX: 276, sY: 164 },
+    { sX: 276, sY: 139 },
+  ],
   w: 34,
   h: 26,
   x: 50,
   y: 150,
+  animationIndex: 0,
   draw: function () {
     ctx.drawImage(
       sprite,
-      this.sX,
-      this.sY,
+      this.Animation[this.animationIndex].sX,
+      this.Animation[this.animationIndex].sY,
       this.w,
       this.h,
       this.x - this.w / 2,
