@@ -70,11 +70,34 @@ var fg = {
   },
 };
 
+var bird = {
+  sX: 276,
+  sY: 112,
+  w: 34,
+  h: 26,
+  x: 50,
+  y: 150,
+  draw: function () {
+    ctx.drawImage(
+      sprite,
+      this.sX,
+      this.sY,
+      this.w,
+      this.h,
+      this.x - this.w / 2,
+      this.y - this.h / 2,
+      this.w,
+      this.h
+    );
+  },
+};
+
 function draw() {
   ctx.fillStyle = "#70c5ce";
   ctx.fillRect(0, 0, cvs.width, cvs.height);
   bg.draw();
   fg.draw();
+  bird.draw();
 }
 
 function update() {}
